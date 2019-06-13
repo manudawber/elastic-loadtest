@@ -1,12 +1,12 @@
 'use strict'
 const { Client } = require('@elastic/elasticsearch');
-const client = new Client({ node: `${__ENV.ELASTIC_LOG_URL}` });
+const client = new Client({ node: `${process.env.ELASTIC_LOG_URL}` });
 const fs = require('fs');
 
 var linesArray = fs.readFileSync('/k6/mnt/results.json', 'utf8').split('\n');
 var bulkData = [];
 
-var indexData = { index: { _index: `${__ENV.ELASTIC_LOG_INDEX}` } };
+var indexData = { index: { _index: `${process.env.ELASTIC_LOG_INDEX}` } };
 
 linesArray.forEach(function(line) {
   if (/^\{.+\}$/.test(line)) {
@@ -25,6 +25,8 @@ async function run () {
   if (bulkResponse.errors) {
     console.log(bulkResponse);
     process.exit(1);
+  } else {
+    console.log(`Indexed ${linesArray.length} documents to ${process.env.ELASTIC_LOG_URL}/${process.env.ELASTIC_LOG_INDEX}`);
   }
 }
 

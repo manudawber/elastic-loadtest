@@ -9,8 +9,10 @@ const url = `${__ENV.ELASTIC_URL}`,
       payload = open("/k6/mnt/query.json");
 
 export let options = {
-    duration: `${__ENV.TEST_DURATION}`,
-    vus: `${__ENV.TEST_NUM_USERS}`
+    stages: [
+        { duration: `${__ENV.TEST_RAMP_DURATION}`, target: `${__ENV.TEST_NUM_USERS}` },
+        { duration: `${__ENV.TEST_DURATION}`, target: `${__ENV.TEST_NUM_USERS}`  },
+    ]
 };
 
 export default function() {
