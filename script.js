@@ -6,7 +6,7 @@ const url = `${__ENV.ELASTIC_URL}`,
       index = `${__ENV.ELASTIC_INDEX}`,
       user = `${__ENV.ELASTIC_USER}`,
       passwd = `${__ENV.ELASTIC_PASSWD}`,
-      payload = open("/k6/config/query.json");
+      payload = open("/k6/mnt/query.json");
 
 export let options = {
     duration: `${__ENV.TEST_DURATION}`,

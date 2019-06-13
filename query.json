@@ -1,0 +1,7 @@
+{
+  "query": {
+    "match": {
+      "cloud.region": "ap-southeast-2"
+    }
+  }
+}    
